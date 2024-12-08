@@ -8,12 +8,12 @@ interface SearchComponentProps {
 }
 
 const SearchComponent = ({ onSearch }: SearchComponentProps) => {
-    const handleSearch = useCallback(
-      debounce((searchTerm) => {
-        onSearch(searchTerm);
-      }, 300),
-      []
-    );
+  const handleSearch = useCallback(
+    debounce((searchTerm) => {
+      onSearch(searchTerm);
+    }, 300),
+    []
+  );
 
   return (
     <View style={styles.container}>
