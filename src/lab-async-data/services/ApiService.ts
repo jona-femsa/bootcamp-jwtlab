@@ -11,14 +11,14 @@ export const fetchUsers = async(search: string) => {
 
         if(cache) {
             console.log('Datos cargados desde cache');
-            return JSON.parse(cache);
+            return JSON.parse(cache).filter((item: {name: string}) => item.name.toLowerCase().includes(search.toLowerCase()));
         }
 
         const response = await axios.get(API_URL);
         await AsyncStorage.setItem(CACHE_KEY, JSON.stringify(response.data));
         
         console.log('Datos cargados desde API');
-        return response.data;
+        return response.data.filter((item: {name: string}) => item.name.toLowerCase().includes(search.toLowerCase()));;
     } catch(error) {
         throw new Error('Error obteniendo usuarios');
     }
