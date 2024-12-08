@@ -11,8 +11,8 @@ const ProfileScreen: React.FC = ({ navigation }) => {
   };
 
   const handleAPI = async() => {
-    const credentials = await getToken();
-    console.log(JSON.parse(credentials));
+    const response = await api.get('/pokemon/ditto');
+    console.log(response.data);
   };
 
   return (

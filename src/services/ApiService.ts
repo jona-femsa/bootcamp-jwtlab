@@ -2,7 +2,11 @@ import axios from "axios";
 import { deleteToken, getToken } from "../utils/storage";
 import { refreshToken } from "./AuthService";
 
-axios.interceptors.request.use(async (config) => {
+const api = axios.create({
+  baseURL: "https://pokeapi.co/api/v2", // Placeholder URL
+});
+
+api.interceptors.request.use(async (config) => {
   let credentials = await getToken();
 
   if(credentials) {
@@ -16,10 +20,12 @@ axios.interceptors.request.use(async (config) => {
     }
   }
 
+  console.log(config.headers.Authorization);
+
   return config;
 });
 
-axios.interceptors.response.use(
+api.interceptors.response.use(
   (response) => response,
   async (error) => {
     if(error.response && error.response.status === 401) {
@@ -29,10 +35,5 @@ axios.interceptors.response.use(
     return Promise.reject(error);
   }
 );
-
-const api = axios.create({
-  baseURL: "https://example.com/api", // Placeholder URL
-});
-
 
 export default api;
