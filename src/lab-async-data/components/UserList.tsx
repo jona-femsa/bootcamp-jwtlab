@@ -12,18 +12,18 @@ interface User {
 }
 
 const UserList = () => {
-  const [search, setSearch] = useState<string>('');    
+  const [search, setSearch] = useState<string>('');
 
   const { data, isLoading, error, refetch } = useQuery({
     queryKey: ['users', search],
-    queryFn: () => fetchUsers(search),
+    queryFn: (): Promise<User[]> => fetchUsers(search),
     retry: 3, // Reintenta hasta 3 veces en caso de fallo
   });
 
   const handleSearch = (query: srting) => {
     setSearch(query);
     refetch();
-  }
+  };
 
   if (isLoading) {
     return (

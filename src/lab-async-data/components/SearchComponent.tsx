@@ -1,5 +1,5 @@
 // components/SearchComponent.tsx
-import React, { useCallback, useState } from 'react';
+import React, { useCallback } from 'react';
 import { TextInput, StyleSheet, View } from 'react-native';
 import { debounce } from 'lodash';
 

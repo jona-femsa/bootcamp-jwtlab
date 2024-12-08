@@ -1,9 +1,9 @@
-import axios from "axios";
-import { deleteToken, getToken } from "../utils/storage";
-import { refreshToken } from "./AuthService";
+import axios from 'axios';
+import { deleteToken, getToken } from '../utils/storage';
+import { refreshToken } from './AuthService';
 
 const api = axios.create({
-  baseURL: "https://pokeapi.co/api/v2", // Placeholder URL
+  baseURL: 'https://pokeapi.co/api/v2', // Placeholder URL
 });
 
 api.interceptors.request.use(async (config) => {

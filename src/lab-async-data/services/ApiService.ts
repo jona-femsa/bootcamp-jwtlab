@@ -1,5 +1,5 @@
-import axios from "axios";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const API_URL = 'https://jsonplaceholder.typicode.com/users';
 const CACHE_KEY = 'cachedUsers';
@@ -16,13 +16,13 @@ export const fetchUsers = async(search: string) => {
 
         const response = await axios.get(API_URL);
         await AsyncStorage.setItem(CACHE_KEY, JSON.stringify(response.data));
-        
+
         console.log('Datos cargados desde API');
-        return response.data.filter((item: {name: string}) => item.name.toLowerCase().includes(search.toLowerCase()));;
+        return response.data.filter((item: {name: string}) => item.name.toLowerCase().includes(search.toLowerCase()));
     } catch(error) {
         throw new Error('Error obteniendo usuarios');
     }
-}
+};
 
 export const clearCache = async () => {
     try {
