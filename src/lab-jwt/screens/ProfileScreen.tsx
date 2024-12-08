@@ -12,7 +12,7 @@ const ProfileScreen: React.FC = ({ navigation }) => {
 
   const handleAPI = async() => {
     const response = await api.get('/pokemon/ditto');
-    console.log(response.data);
+    console.log(response.status);
   };
 
   return (
