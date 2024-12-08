@@ -1,8 +1,9 @@
 // components/UserList.tsx
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, FlatList, StyleSheet, ActivityIndicator } from 'react-native';
 import { useQuery } from 'react-query';
 import { fetchUsers } from '../services/ApiService';
+import SearchComponent from './SearchComponent';
 
 interface User {
   id: number;
@@ -11,11 +12,18 @@ interface User {
 }
 
 const UserList = () => {
-  const { data, isLoading, error } = useQuery({
-    queryKey: ['users'],
-    queryFn: fetchUsers,
+  const [search, setSearch] = useState<string>('');    
+
+  const { data, isLoading, error, refetch } = useQuery({
+    queryKey: ['users', search],
+    queryFn: () => fetchUsers(search),
     retry: 3, // Reintenta hasta 3 veces en caso de fallo
   });
+
+  const handleSearch = (query: srting) => {
+    setSearch(query);
+    refetch();
+  }
 
   if (isLoading) {
     return (
@@ -36,6 +44,7 @@ const UserList = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Usuario</Text>
+      <SearchComponent onSearch={handleSearch}/>
       <FlatList
         data={data}
         keyExtractor={(item) => item.id.toString()}

@@ -4,7 +4,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 const API_URL = 'https://jsonplaceholder.typicode.com/users';
 const CACHE_KEY = 'cachedUsers';
 
-export const fetchUsers = async() => {
+export const fetchUsers = async(search: string) => {
     try {
         // Primero desde cache
         const cache = await AsyncStorage.getItem(CACHE_KEY);
