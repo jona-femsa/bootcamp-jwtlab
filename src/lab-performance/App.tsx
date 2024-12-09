@@ -1,10 +1,11 @@
 import React from 'react';
 // import SwipeCardScreen from './components/SwipeCardScreen';
 import AnimatedList from './components/AnimatedList';
+import GalleryScreen from './components/GalleryScreen';
 
 
 const App = () => (
-  <AnimatedList />
+  <GalleryScreen />
 );
 
 export default App;
