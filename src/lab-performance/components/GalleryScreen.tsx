@@ -1,23 +1,30 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { StyleSheet, FlatList, View } from 'react-native';
 import FastImage from 'react-native-fast-image';
 
-const IMAGE_URLS = Array.from({ length: 1000 }, (_, i) => 
-    `https://via.placeholder.com/600x400.png?text=Imagen+${i + 1}`
+// Crear el componente de lista de imágenes como React.memo
+const ImageItem = React.memo(({ uri }: { uri: string }) => (
+  <View style={styles.imageContainer}>
+    <FastImage
+      style={styles.image}
+      source={{
+        uri: uri,
+        priority: FastImage.priority.normal,
+      }}
+      resizeMode={FastImage.resizeMode.cover}
+    />
+  </View>
+));
+
+const IMAGE_URLS = Array.from({ length: 1000 }, (_, i) =>
+  `https://via.placeholder.com/600x400.png?text=Imagen+${i + 1}`
 );
 
 export default function GalleryScreen() {
-  const renderItem = ({ item }: { item: string }) => (
-    <View style={styles.imageContainer}>
-      <FastImage
-        style={styles.image}
-        source={{
-          uri: item,
-          priority: FastImage.priority.normal,
-        }}
-        resizeMode={FastImage.resizeMode.cover}
-      />
-    </View>
+  // Usar useCallback para memoizar la función renderItem
+  const renderItem = useCallback(
+    ({ item }: { item: string }) => <ImageItem uri={item} />,
+    []
   );
 
   return (
