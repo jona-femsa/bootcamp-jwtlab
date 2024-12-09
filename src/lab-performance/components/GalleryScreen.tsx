@@ -2,13 +2,9 @@ import React from 'react';
 import { StyleSheet, FlatList, View } from 'react-native';
 import FastImage from 'react-native-fast-image';
 
-const IMAGE_URLS = [
-  'https://via.placeholder.com/600x400.png?text=Imagen+1',
-  'https://via.placeholder.com/600x400.png?text=Imagen+2',
-  'https://via.placeholder.com/600x400.png?text=Imagen+3',
-  'https://via.placeholder.com/600x400.png?text=Imagen+4',
-  'https://via.placeholder.com/600x400.png?text=Imagen+5',
-];
+const IMAGE_URLS = Array.from({ length: 1000 }, (_, i) => 
+    `https://via.placeholder.com/600x400.png?text=Imagen+${i + 1}`
+);
 
 export default function GalleryScreen() {
   const renderItem = ({ item }: { item: string }) => (
@@ -30,6 +26,11 @@ export default function GalleryScreen() {
       keyExtractor={(item, index) => index.toString()}
       renderItem={renderItem}
       contentContainerStyle={styles.listContainer}
+      initialNumToRender={10}
+      windowSize={5}
+      removeClippedSubviews={true}
+      maxToRenderPerBatch={10}
+      updateCellsBatchingPeriod={50}
     />
   );
 }
