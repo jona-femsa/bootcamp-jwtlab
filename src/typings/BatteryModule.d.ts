@@ -1,4 +1,4 @@
-declare module "react-native-battery-module" {
+declare module 'react-native-battery-module' {
     interface BatteryModuleType {
         getBatteryLevel(): Promise<number>
     }

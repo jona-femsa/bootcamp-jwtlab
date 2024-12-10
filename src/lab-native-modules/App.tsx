@@ -11,13 +11,17 @@ const App = () => {
         setBattery(level);
       })
       .catch((error: string) => console.log(error));
-  
+
     // Suscribirse a los eventos de cambio de batería
     const subscription = BatteryModule.subscribeToBatteryLevelChanges((level: number) => {
       if (level >= 0) {
         setBattery(level);
       } else {
         console.log('Received invalid battery level');
+      }
+
+      if(level < 20) {
+        Alert.alert('¡Batería baja!');
       }
     });
 
@@ -29,12 +33,12 @@ const App = () => {
   }, []);
 
   const getBatteryLevelColor = (): string => {
-    if (battery === null || battery === undefined || battery < 0) return 'gray';
-    if (battery > 75) return 'green';
-    if (battery > 50) return 'orange';
-    if (battery > 25) return 'red';
+    if (battery === null || battery === undefined || battery < 0) {return 'gray';}
+    if (battery > 75) {return 'green';}
+    if (battery > 50) {return 'orange';}
+    if (battery > 25) {return 'red';}
     return 'darkred';
-  };  
+  };
 
   return (
     <SafeAreaView style={styles.container}>
